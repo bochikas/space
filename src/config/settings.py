@@ -102,6 +102,11 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=100),
 }
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'API пользователей',
+    'DESCRIPTION': 'Документация API.',
+    'VERSION': '1.0.0',
+}
 
 LANGUAGE_CODE = 'en-us'
 
