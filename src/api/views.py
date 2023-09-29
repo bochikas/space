@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from drf_spectacular.utils import extend_schema, OpenApiResponse
 from rest_framework import response, status, views
 
+from api.filters import UserFilter
 from api.mixins import ListRetrieveUpdateDestroyViewSet
 from api.permissions import IsAuthenticatedAndAdminOrReadOnlyPermission
 from api.serializers import IdResponseSerializer, UserSerializer, UserEditSerializer
@@ -30,6 +31,7 @@ class UserViewSet(ListRetrieveUpdateDestroyViewSet):
 
     queryset = User.objects.all()
     permission_classes = [IsAuthenticatedAndAdminOrReadOnlyPermission]
+    filterset_class = UserFilter
     http_method_names = ['get', 'patch', 'delete']
 
     def get_serializer_class(self):
