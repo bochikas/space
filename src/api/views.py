@@ -7,7 +7,7 @@ from api.filters import UserFilter
 from api.mixins import ListRetrieveUpdateDestroyViewSet
 from api.permissions import IsAuthenticatedAndAdminOrReadOnlyPermission
 from api.serializers import IdResponseSerializer, UserSerializer, UserEditSerializer
-from api.services import create_user, update_user
+from api.services import create_user, update_user, soft_delete_user
 
 User = get_user_model()
 
@@ -40,8 +40,7 @@ class UserViewSet(ListRetrieveUpdateDestroyViewSet):
         return UserSerializer
 
     def perform_destroy(self, instance):
-        instance.deleted = True
-        instance.save()
+        soft_delete_user(instance)
 
     def perform_update(self, serializer):
         update_user(user=serializer.instance, **serializer.validated_data)

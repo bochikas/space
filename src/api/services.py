@@ -22,3 +22,10 @@ def update_user(*, user: User, first_name: str = '', last_name: str = '',
         if value:
             setattr(user, field, value)
     user.save()
+
+
+def soft_delete_user(user: User):
+    """'Мягкое' удаление пользователя."""
+
+    user.deleted = True
+    user.save()
