@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 
-from drf_spectacular.utils import extend_schema, OpenApiResponse
+from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiResponse
 from rest_framework import response, status, views
 
 from api.filters import UserFilter
@@ -26,6 +26,12 @@ class CreateUserView(views.APIView):
         return response.Response({'id': user.id}, status=status.HTTP_201_CREATED)
 
 
+@extend_schema_view(
+    retrieve=extend_schema(description='Получение информации по определенному пользователю.'),
+    list=extend_schema(description='Список всех активных пользователей.'),
+    partial_update=extend_schema(description='Обновление данных пользователя.'),
+    destroy=extend_schema(description='Удаление пользователя.'),
+)
 class UserViewSet(ListRetrieveUpdateDestroyViewSet):
     """Вьюсет пользователей."""
 
